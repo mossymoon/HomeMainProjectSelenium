@@ -8,6 +8,7 @@ from base.constants import Constants
 from base.base_page import Base
 from locators.cart_page_locators import CartPageLocators
 
+url = "https://domkniginn.ru/"
 
 class CartPage(Base, CartPageLocators, Constants):
 
@@ -50,7 +51,10 @@ class CartPage(Base, CartPageLocators, Constants):
 
 
     # Methods
-
+    def get_url_not_auth(self):
+        self.driver.get(url)
+        self.driver.maximize_window()
+        self.get_current_url()
     def select_delete_product_1(self):
         self.click_delete_product_1()
         self.allert_window_ok()
@@ -59,4 +63,10 @@ class CartPage(Base, CartPageLocators, Constants):
 
     def select_delete_all_products(self):
         self.get_delete_all_products().click()
+        self.allert_window_ok()
+        self.assert_url("https://domkniginn.ru/site/cart")
+        assert self.check_empty_cart() == Constants.empty_cart
+
+
+
 
